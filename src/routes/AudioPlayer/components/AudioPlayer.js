@@ -8,31 +8,27 @@ import { SharedButtons } from '../../../components/ShareButtons';
 class AudioPlayer extends PureComponent {
     constructor(props) {
         super(props);
-        this.audioPlayer = React.createRef();
         this.state = {
             songs: [],
-            actualSongPosition: 0
         }
     }
 
     componentDidMount() {
-        const newSongsArray = this.props.music.map(song => ({
-            src: song.previewUrl,
-            img: song.artworkUrl100,   
-            name: song.trackName,
-        }));
-        this.setState({ songs: [ ...this.state.songs, ...newSongsArray ] });
-    }
-
-    updatePlayerSong = (payload) => {
-        let newIndex;
-        if (this.state.actualSongPosition === 0 && payload === -1) 
-            newIndex = this.state.songs.length;
-        else if (this.state.songs.length === this.state.actualSongPosition && payload === 1) 
-            newIndex = 0;
-        else 
-            newIndex = this.state.actualSongPosition + payload;
-        this.setState({ actualSongPosition: newIndex })
+        if(typeof this.props.location.trackName !== 'undefined') {
+            let finalArraySong = [];
+            finalArraySong.push({
+                name: this.props.location.trackName,
+                src: this.props.location.mp4,
+                img: this.props.location.artWork,
+            });
+            const newSongsArray = this.props.music.map(song => {
+                return {name: song.trackName,
+                src: song.previewUrl,
+                img: song.artworkUrl100,   }
+            });
+            finalArraySong = [...finalArraySong, ...newSongsArray];
+            this.setState({ songs: [ ...finalArraySong ] });
+        }
     }
 
     deviceType = () => {
@@ -67,8 +63,8 @@ class AudioPlayer extends PureComponent {
             />
             <div style={{ marginTop:10 }}>
                 <SharedButtons
-                    artist={this.state.songs[this.state.actualSongPosition].song}
-                    song={this.state.songs[this.state.actualSongPosition].song}/>
+                    artist={this.props.location.artistName}
+                    song={this.props.location.trackName}/>
             </div>
         </div>
     )

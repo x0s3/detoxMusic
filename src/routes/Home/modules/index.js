@@ -3,8 +3,8 @@ import { handleActions, createAction } from 'redux-actions';
 
 const fetchItunesAction = createAction('FETCH_ITUNES');
 
-const fetchItunes = (info = 'estopa') => async (dispatch) => {
-    const {data} = await axios.get(`https://itunes.apple.com/search?term=${info}`);
+const fetchItunes = (info = 'a') => async (dispatch) => {
+    const {data} = await axios.get(`https://itunes.apple.com/search?term=${info}&entity=musicTrack`);
     dispatch({
         type: fetchItunesAction,
         payload: { music: [...data.results], lastFetch: Date.now() }
