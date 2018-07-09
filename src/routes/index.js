@@ -11,13 +11,13 @@ const NoMatch = () => (
 );
 
 export const Root = () => (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
         <React.Fragment>
             <HeaderWeb/>
             <div style={{ display:'flex', flex:1, alignItems:'center', justifyContent:'center', marginTop:10}}>
                 <Switch>
-                    <Route exact path={`${process.env.PUBLIC_URL}/`} component={Home}/>
-                    <Route exact path={`${process.env.PUBLIC_URL}/player`} component={AudioPlayer}/>
+                    <Route exact path={`/`} component={Home}/>
+                    <Route exact path={`/player`} component={AudioPlayer}/>
                     <Route component={NoMatch}/>
                 </Switch>
             </div>
