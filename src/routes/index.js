@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import { HeaderWeb } from '../components/HeaderWeb';
 import { Home } from '../routes/Home/';
 import { AudioPlayer } from '../routes/AudioPlayer'
@@ -16,8 +16,8 @@ export const Root = () => (
             <HeaderWeb/>
             <div style={{ display:'flex', flex:1, alignItems:'center', justifyContent:'center', marginTop:10}}>
                 <Switch>
-                    <Route exact path={'/'} component={Home}/>
-                    <Route path={'/player'} component={AudioPlayer}/>
+                    <Route exact path={`${process.env.PUBLIC_URL}/`} component={Home}/>
+                    <Route exact path={`${process.env.PUBLIC_URL}/player`} component={AudioPlayer}/>
                     <Route component={NoMatch}/>
                 </Switch>
             </div>
